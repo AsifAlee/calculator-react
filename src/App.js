@@ -7,6 +7,9 @@ import calculate from './calculator-functions/calculation';
 const App = () => {
 
   const [result, setResult] = useState('');
+  /**
+   * when any button is clicked 
+   */
   const onClick = button => {
     if (button === "=") {
       pressEqual()
@@ -21,7 +24,7 @@ const App = () => {
       setResult(result + button);
     }
   };
-
+  //when = button is clicked
   const pressEqual = () => {
     var checkResult = ''
     checkResult = result;
@@ -33,20 +36,18 @@ const App = () => {
       setResult("error")
     }
   };
-
+  //when CE button is clicked
   const reset = () => {
     setResult("");
   };
-
+  //when backspace is clicked
   const backspace = () => {
     setResult(result.slice(0, -1));
   };
 
   return (
     <div className='calculator-body'>
-
       <div className="calculator">
-
         <ResultComponent result={result} />
         <KeyPadComponent onClick={onClick} />
       </div>
