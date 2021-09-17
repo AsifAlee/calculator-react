@@ -1,25 +1,56 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import ResultComponent from './components/ResultComponent';
+import KeyPadComponent from "./components/KeyPadComponent";
+import calculate from './calculator-functions/calculation';
 
-function App() {
+const App = () => {
+
+  const [result, setResult] = useState('');
+  const onClick = button => {
+    if (button === "=") {
+      pressEqual()
+    }
+    else if (button === "C") {
+      reset()
+    }
+    else if (button === "CE") {
+      backspace()
+    }
+    else {
+      setResult(result + button);
+    }
+  };
+
+  const pressEqual = () => {
+    var checkResult = ''
+    checkResult = result;
+    const caluclatedValue = calculate(checkResult);
+
+    try {
+      setResult(caluclatedValue);
+    } catch (e) {
+      setResult("error")
+    }
+  };
+
+  const reset = () => {
+    setResult("");
+  };
+
+  const backspace = () => {
+    setResult(result.slice(0, -1));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='calculator-body'>
+
+      <div className="calculator">
+
+        <ResultComponent result={result} />
+        <KeyPadComponent onClick={onClick} />
+      </div>
     </div>
   );
 }
-
 export default App;
